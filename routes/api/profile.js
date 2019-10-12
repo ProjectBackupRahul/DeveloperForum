@@ -30,7 +30,7 @@ router.get('/me', auth, async (req,res) => {
     }
 });
 
-// @ route  GET  api//profile
+// @ route  POST  api//profile
 // @ Desc   Create or update user profile 
 // @ Access PRIVATE  
 
@@ -71,7 +71,7 @@ router.get('/me', auth, async (req,res) => {
           if (skills) {
             profileFields.skills = skills.split(',').map(skill => skill.trim());
           }
-      
+           console.log(profileFields.skills);
           // Build social object
           profileFields.social = {};
           if (youtube) profileFields.social.youtube = youtube;
@@ -91,7 +91,7 @@ router.get('/me', auth, async (req,res) => {
                       res.json(profile);
             }
           
-       /// Create 
+       /// Create new for users
          profile = new Profile(profileFields);
          await profile.save();
          res.json(profile);
@@ -100,5 +100,42 @@ router.get('/me', auth, async (req,res) => {
             res.status(500).send('Server Error');
           }
    });
+   
+// @ route  GET  api//profile
+// @ Desc   Getting all profile 
+// @ Access PUBLIC
+
+router.get('/',async(req,res) =>{
+   try {
+      const profiles = await Profile.find().populate('user', ['name', 'avater'])
+       res.json(profiles);
+     
+   } catch (err) {
+       console.error (err.message);
+       res.status(500).send('Server Error')
+
+   }
+});
+
+ // @ route  GET  api//profile/user/user_id
+// @ Desc   Get profile by user ID
+// @ Access PUBLIC
+
+router.get('/user/:user_id',async(req,res) =>{
+  try {
+     const profiles = await Profile.findOne({user: req.params.user_id}).
+     populate('user', ['name', 'avater'])
+      if (!profile) return res.status(400).json({msg: 'Profile not found'});
+      res.json(profiles);
+    
+  } catch (err) {
+      console.error (err.message);
+      if (err.kind == 'ObjectId')
+      res.status(400).json({msg: 'Profile not found'});
+      res.status(500).send('Server Error')
+
+  }
+});
+
 
 module.exports = router;
