@@ -38,7 +38,6 @@ router.get('/me', auth, async (req,res) => {
 // @ Desc   Create or update user profile 
 // @ Access PRIVATE  
 
-
    router.post('/', [auth, 
     [check('status', 'Status is required ').not().isEmpty(),
     check('skill' , 'Skill is required ').not().isEmpty()
