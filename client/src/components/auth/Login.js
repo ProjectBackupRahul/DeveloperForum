@@ -21,9 +21,9 @@ const Login = ({ login, isAuthenticated }) => {
     // Redirect if loged in 
 
     if (isAuthenticated){
-       return <Redirect to = "/dashboard" />
+       return <Redirect to = "/dashboard"/>
     }
-
+   
     return (
         <Fragment>  <h1 className="large text-primary">Sign In</h1>
         <p className="lead"><i className="fas fa-user"></i> Login Into Your Account</p>

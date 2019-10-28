@@ -6,7 +6,9 @@ import {
       USER_LOADED,
       AUTH_ERROR,
       LOGIN_SUCCESS,
-      LOGIN_FAIL
+      LOGIN_FAIL,
+      LOGOUT,
+      CLEAR_PROFILE
     } from './types';
 import setAuthToken from '../utils/setAuthToken';
 // Load user 
@@ -21,8 +23,8 @@ setAuthToken(localStorage.token)
                  payload : res.data
              });
       } catch (error) {
-          dispatch({
-               type: AUTH_ERROR
+        dispatch({
+          type: AUTH_ERROR
           });
       }
 }
@@ -34,7 +36,6 @@ setAuthToken(localStorage.token)
           }
      }
         const body = JSON.stringify({name, email, password});
-
         try {
             const res = await axios.post('api/users',body,config);
 
@@ -50,7 +51,7 @@ setAuthToken(localStorage.token)
                     errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
                }
                dispatch({
-                   type: REGISTER_FAIL
+               type: REGISTER_FAIL
                });
         }
  }
@@ -77,10 +78,16 @@ setAuthToken(localStorage.token)
 
                const errors = err.response.data.errors;
                if (errors){
-                    errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+               errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
                }
                dispatch({
-                   type: LOGIN_FAIL
+               type: LOGIN_FAIL
                });
         }
+ }
+ // Logout / clear profile 
+
+export const logout = () => dispatch => {
+    dispatch({ type: LOGOUT }); 
+    dispatch({ type: CLEAR_PROFILE });     
  }
