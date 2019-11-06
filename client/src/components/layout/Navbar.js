@@ -48,7 +48,6 @@ Navbar.propTypes ={
 
 }
 
-
 const mapStateToProps = state => ({
   auth: state.auth
 });

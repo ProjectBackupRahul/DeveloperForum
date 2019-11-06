@@ -1,5 +1,5 @@
 {
-     "mongoURI": "mongodb+srv://password:username@devconnector-zjv9a.mongodb.net/mern?retryWrites=true&w=majority",
+     "mongoURI": "mongodb+user_url",
      "jwtToken" : "myscrecttoken",
       "githubClientId" : "20f3235da80d608f8a9d",
        "githubSecret" : "2f8daf93e60fee1cd87d566be0e18c9faac2af41"

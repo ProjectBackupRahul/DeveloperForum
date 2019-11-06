@@ -80,6 +80,7 @@ setAuthToken(localStorage.token)
                if (errors){
                errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
                }
+               
                dispatch({
                type: LOGIN_FAIL
                });
